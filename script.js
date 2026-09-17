@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  /* ---------- Draggable chatbot ---------- */
+  /* ---------- Chatbot ---------- */
   var chatToggle = document.getElementById("chat-toggle");
   var chatPanel = document.getElementById("chat-panel");
   var chatClose = document.getElementById("chat-close");
@@ -102,8 +102,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var chatSend = document.getElementById("chat-send");
 
   if (chatToggle) {
-    // Fixed position (see .chat-toggle / .chat-panel in styles.css) — stacked
-    // directly under the WhatsApp button, right-aligned, no dragging.
     function togglePanel() {
       if (!chatPanel) return;
       chatPanel.classList.toggle("open");
@@ -118,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
       { k: ["document", "documents", "need"], a: "It depends on the service, but common documents are your SARS eFiling login, ID/company registration docs, bank statements, and prior assessments. I can confirm exactly what's needed for your situation in a consultation." },
       { k: ["deadline", "sars deadline", "due"], a: "SARS deadlines vary by tax type — provisional tax, VAT201s, and EMP501 reconciliations all run on different cycles. I keep every client's deadlines tracked directly, so nothing slips." },
       { k: ["dispute", "objection", "penalty"], a: "Tax disputes are handled with formal objections and appeals (RFR, NOO, NOA), and I can also request penalty or interest remission where it's warranted." },
-      { k: ["price", "cost", "fee", "quote"], a: "Pricing depends on the scope of work, so I don't quote generic figures here — the fastest way to get a real number is to request a quote and I'll come back with something tailored." },
+      { k: ["price", "cost", "fee", "quote"], a: "Pricing depends on the scope of work, so I don't quote generic figures here — the best next step is to book a free consultation and I'll talk you through what it would look like for your situation." },
       { k: ["accounting", "bookkeeping", "advisory"], a: "Accounting & Advisory covers monthly bookkeeping, annual financial statements, management reporting, and general business advisory — the backbone behind accurate tax filings." },
     ];
 

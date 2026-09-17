@@ -1,5 +1,5 @@
 /* ============================================
-   Oneacc Consulting — stylesheet
+   Onesec Consulting — stylesheet
    Built to the project handover spec (§2, §10, §11)
    ============================================ */
 
@@ -16,7 +16,6 @@
   --action-bright: #6ca0ff;
   --gold: #a4741e;
   --gold-bright: #e8b75a;
-  --whatsapp: #25d366;
   --hairline: #e2e5ea;
 
   --font-display: "Instrument Serif", Georgia, serif;
@@ -87,14 +86,51 @@ button { font-family: inherit; cursor: pointer; }
 .nav-toggle { display: none; background: none; border: none; padding: 6px; color: #fff; }
 .nav-toggle svg { width: 24px; height: 24px; }
 
+/* ---------- Services hover dropdown ---------- */
+.main-nav ul li.has-dropdown { position: relative; }
+.main-nav ul li.has-dropdown > a::after { content: "▾"; margin-left: 6px; font-size: 11px; color: var(--muted-light); }
+.main-nav .dropdown {
+  position: absolute; top: 100%; left: 0; min-width: 240px;
+  background: var(--navy-soft); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px;
+  padding: 8px; margin-top: 8px; opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+  list-style: none; z-index: 210;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.main-nav ul li.has-dropdown:hover .dropdown,
+.main-nav ul li.has-dropdown:focus-within .dropdown {
+  opacity: 1; visibility: visible; transform: translateY(0);
+}
+.main-nav .dropdown li { margin: 0; }
+.main-nav .dropdown a {
+  display: block; padding: 10px 12px; font-size: 13.5px; border-radius: 6px; white-space: nowrap;
+  color: var(--muted-light);
+}
+.main-nav .dropdown a:hover { background: rgba(46,125,255,0.12); color: var(--action-bright); }
+
 @media (max-width: 860px) {
-  .main-nav { position: fixed; inset: var(--nav-height) 0 auto 0; flex-direction: column; align-items: stretch; padding: 8px 24px 24px; gap: 16px; transform: translateY(-8px); opacity: 0; pointer-events: none; transition: opacity 0.18s ease, transform 0.18s ease; }
+  .main-nav {
+    position: fixed; inset: var(--nav-height) 0 auto 0; flex-direction: column; align-items: stretch;
+    padding: 8px 24px 24px; gap: 16px; transform: translateY(-8px); opacity: 0; pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    background: rgba(15, 27, 46, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    max-height: calc(100vh - var(--nav-height));
+    overflow-y: auto;
+  }
   .main-nav.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
   .main-nav ul { flex-direction: column; gap: 4px; }
   .main-nav ul a { display: block; padding: 10px 2px; }
   .main-nav .btn { width: 100%; text-align: center; margin-top: 8px; }
   .nav-toggle { display: block; }
+  .main-nav .dropdown { display: none; }
 }
+
+/* Anchor targets scroll below the fixed nav */
+.tax-card, .advisory-block { scroll-margin-top: calc(var(--nav-height) + 24px); }
 
 /* ---------- Hero texture / glass utilities ---------- */
 .hero-texture {
@@ -181,11 +217,7 @@ button { font-family: inherit; cursor: pointer; }
 @media (max-width: 880px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
 
-/* ---------- Floating WhatsApp + Chatbot ---------- */
-.whatsapp-fab { position: fixed; right: 24px; bottom: 90px; z-index: 150; width: 54px; height: 54px; border-radius: 50%; background: var(--whatsapp); color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,0,0,0.25); transition: transform 0.2s ease; }
-.whatsapp-fab:hover { transform: scale(1.1); }
-.whatsapp-fab svg { width: 24px; height: 24px; }
-
+/* ---------- Floating chatbot ---------- */
 .chat-toggle { position: fixed; right: 24px; bottom: 24px; z-index: 150; width: 54px; height: 54px; border-radius: 50%; background: var(--action); color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 24px rgba(0,0,0,0.28); border: none; transition: transform 0.2s ease; }
 .chat-toggle:hover { transform: scale(1.08); }
 .chat-toggle svg { width: 22px; height: 22px; }
@@ -278,11 +310,9 @@ button { font-family: inherit; cursor: pointer; }
 .about-cta { max-width: 640px; margin: 96px auto 0; padding: 0 24px 112px; text-align: center; }
 
 /* ---------- Contact page ---------- */
-.contact-forms { margin-top: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-@media (max-width: 940px) { .contact-forms { grid-template-columns: 1fr; } }
+.contact-forms { margin-top: 64px; display: grid; grid-template-columns: 1fr; max-width: 640px; margin-left: auto; margin-right: auto; }
 .form-card { background: var(--slate-surface); border: 1px solid var(--hairline); border-radius: 24px; padding: 40px; }
 .form-card .tag { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; color: var(--action); }
-.form-card.quote .tag { color: var(--gold); }
 .form-card h3 { font-size: 30px; margin-bottom: 8px; }
 .form-card .subtitle { color: var(--muted-grey); font-size: 14px; margin-bottom: 28px; }
 
@@ -305,11 +335,10 @@ form.lead-form { display: grid; gap: 16px; }
 .success-block p { color: var(--muted-grey); font-size: 14px; max-width: 30ch; margin: 0 auto; line-height: 1.6; }
 
 .contact-strip { margin-top: 80px; border-radius: 24px; overflow: hidden; border: 1px solid var(--hairline); position: relative; background: linear-gradient(155deg, var(--navy-soft), var(--navy)); }
-.contact-strip-inner { position: relative; padding: 56px 32px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
-@media (max-width: 780px) { .contact-strip-inner { grid-template-columns: 1fr 1fr; } }
+.contact-strip-inner { position: relative; padding: 56px 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: center; }
+@media (max-width: 780px) { .contact-strip-inner { grid-template-columns: 1fr; } }
 .contact-strip-item svg { width: 22px; height: 22px; color: var(--action-bright); margin: 0 auto 12px; }
 .contact-strip-item span { display: block; font-size: 14px; color: var(--light); font-weight: 500; }
-.contact-strip-item.wa svg { color: var(--whatsapp); }
 
 /* ---------- 404 ---------- */
 .notfound { min-height: calc(100vh - var(--nav-height)); display: flex; align-items: center; justify-content: center; text-align: center; background: var(--navy); padding: 48px 24px; }
